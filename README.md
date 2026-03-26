@@ -8,7 +8,7 @@ Here is a short explanation of the rules:
 2. After starting, you will see the progress in the terminal.
 3. The game is simple:
    1. As initial, you get ten chances. Each chance is a part of the hanging man.
-   2. Type a letter in the terminal and press enter. You can guess a letter per turn.
+   2. Type a letter in the terminal and press enter. You can guess only one letter per turn.
    3. You are not allowed to type: multiple letters, numbers or any symbols that the alphabet doesn't contain.
    4. If you guess correct, your remaining chances stay untouched.
    5. If you guess wrong, one chance at a time will be removed and a part of the hanging man is drawn into the terminal. If you use all your chances, you lose the game and hang the man.
