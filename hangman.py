@@ -3,13 +3,16 @@ from collections import Counter
 
 class HangmanLogic:
 
-    def __init__(self, mode="singleplayer", players=None, round_count= 0, max_rounds = 0, teams_enabled=False):
+    def __init__(self, mode="singleplayer", players=None, round_count= 1, max_rounds = 0, teams_enabled=False):
         self.word_pool = self._load_words()
         self.word = self._get_random_word().lower()
         self.mode = mode      
         self.letterCorrectGuessed = set()
         self.letterFalseGuessed = set()
         self.stages = 10
+        self.max_rounds = max_rounds
+        self.players = players
+        self.round_count = round_count
         self.game_over = False
         self.game_win = False
         self.hangman_stages = [
@@ -92,11 +95,8 @@ class HangmanLogic:
         if mode == "multiplayer":
             if players is None:
                 players = ["Player 1", "Player 2"]
-            self.players = players
             self.teams_enabled = teams_enabled  
-            self.round_count = round_count
             self.current_player_index = 0
-            self.max_rounds = max_rounds
             self.player_points = {}
             self.player_guesses = {}
             for player in players:
@@ -148,10 +148,10 @@ class HangmanLogic:
     
     def get_status(self):
         return {
-            "word": self.display_word(),
-            "lives": self.stages,
-            "game_over": self.game_over,
-            "won": self.game_win
+            "Round": self.round_count,
+            "Lives": self.stages,
+            "Game State": "Over" if self.game_over else "Ongoing",
+            "Won?": "Yes" if self.game_win else "No"
         }
     
     def player_info(self):
