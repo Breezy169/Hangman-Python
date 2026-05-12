@@ -14,9 +14,12 @@ class MainMenu(tk.Frame):
         
         self.selected_mode = tk.StringVar(value="singleplayer")  # default
         
+        tk.Label(self, text="Number of rounds:", font=("Calibri", 12)).pack(pady=(20,5))
         self.max_rounds_entry = tk.Entry(self, font=("Calibri", 12))
-        self.max_rounds_entry.pack(pady=10)
+        self.max_rounds_entry.pack(pady=(5,15))
         
+        
+        tk.Label(self, text="Number of players:", font=("Calibri", 12)).pack()
         self.player_count_entry = tk.Entry(self, font=("Calibri", 12))
         self.player_count_entry.pack(pady=10)
         # Toggle-Funktion
@@ -55,6 +58,8 @@ class MainMenu(tk.Frame):
     def start_game_from_menu(self, mode):
         # Input aus Entry lesen
         try:
+            
+
             max_rounds = int(self.max_rounds_entry.get())
             if max_rounds < 1:
                 max_rounds = 1

@@ -12,84 +12,30 @@ class HangmanLogic:
         self.stages = 10
         self.max_rounds = max_rounds
         self.players = players
+        self.player_guesses = {}
         self.round_count = round_count
         self.game_over = False
         self.game_win = False
         self.hangman_stages = [
-            """
-            ========
-            """,
-            """
-            |
-            |
-            |
-            |
-            ========
-            """,
-            """
-            +---+
-            |
-            |
-            |
-            |
-            ========
-            """,
-            """
-            +---+
-            |   |
-            |
-            |
-            |
-            ========
-            """,
-            """
-            +---+
-            |   |
-            |   O
-            |
-            |
-            ========
-            """,
-            """
-            +---+
-            |   |
-            |   O
-            |   |
-            |
-            ========
-            """,
-            """
-            +---+
-            |   |
-            |   O
-            |  /|
-            |
-            ========
-            """,
-            """
-            +---+
-            |   |
-            |   O
-            |  /|\\
-            |
-            ========
-            """,
-            """
-            +---+
-            |   |
-            |   O
-            |  /|\\
-            |  /
-            ========
-            """,
-            """
-            +---+
-            |   |
-            |   O
-            |  /|\\
-            |  / \\
-            ========
-            """
+        "========",
+        
+        "|\n|\n|\n|\n========",
+        
+        "+---+\n|\n|\n|\n|\n========",
+        
+        "+---+\n|   |\n|\n|\n|\n========",
+        
+        "+---+\n|   |\n|   O\n|\n|\n========",
+        
+        "+---+\n|   |\n|   O\n|   |\n|\n========",
+        
+        "+---+\n|   |\n|   O\n|  /|\n|\n========",
+        
+        "+---+\n|   |\n|   O\n|  /|\\\n|\n========",
+        
+        "+---+\n|   |\n|   O\n|  /|\\\n|  /\n========",
+        
+        "+---+\n|   |\n|   O\n|  /|\\\n|  / \\\n========"
         ]
 
         if mode == "multiplayer":
@@ -98,7 +44,6 @@ class HangmanLogic:
             self.teams_enabled = teams_enabled  
             self.current_player_index = 0
             self.player_points = {}
-            self.player_guesses = {}
             for player in players:
                 self.player_points[player] = 0
             for player in players:
@@ -177,7 +122,7 @@ class HangmanLogic:
     
     def get_hangman(self):
         return self.hangman_stages[min(9, 10-self.stages)]
-    
+
     def check_guess(self, guessed_letter):
         guessed_letter = guessed_letter.lower()
 
@@ -194,9 +139,11 @@ class HangmanLogic:
         # make guessed letter to lower and sort it as either correct guessed or false guessed + check if win conditions are met
         if guessed_letter in self.word:
             self.letterCorrectGuessed.add(guessed_letter)
-            self.player_guesses[self.current_player] += guessed_letter
+            
             if self.mode == "multiplayer":
+                self.player_guesses[self.current_player] += guessed_letter
                 self.player_points[self.current_player] += 1
+
             if all(c in self.letterCorrectGuessed for c in self.word):
                 self.win()
             return True
